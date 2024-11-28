@@ -1,0 +1,12 @@
+/mnt/data/jnulzl/codes/tensorflow/build_dir/highwayhash/install/lib/libhighwayhash.a
+/mnt/data/jnulzl/codes/tensorflow/build_dir/highwayhash/install/include/code_annotation.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/highwayhash/install/include/highway_tree_hash.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/highwayhash/install/include/scalar_highway_tree_hash.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/highwayhash/install/include/scalar_sip_tree_hash.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/highwayhash/install/include/sip_hash.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/highwayhash/install/include/sip_tree_hash.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/highwayhash/install/include/sse41_highway_tree_hash.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/highwayhash/install/include/state_helpers.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/highwayhash/install/include/types.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/highwayhash/install/include/vec.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/highwayhash/install/include/vec2.h

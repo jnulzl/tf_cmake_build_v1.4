@@ -15,7 +15,11 @@
 include (ExternalProject)
 
 set(PROTOBUF_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR}/protobuf/src/protobuf/src)
-set(PROTOBUF_URL https://github.com/mrry/protobuf.git)  # Includes MSVC fix.
+if(local_third_party)
+  set(PROTOBUF_URL ${local_third_party}/protobuf)
+else()
+  set(PROTOBUF_URL https://github.com/mrry/protobuf.git)  # Includes MSVC fix.
+endif()
 set(PROTOBUF_TAG 1d2c7b6c7376f396c8c7dd9b6afd2d4f83f3cb05)
 
 if(WIN32)

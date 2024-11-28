@@ -1,0 +1,8 @@
+/mnt/data/jnulzl/codes/tensorflow/build_dir/zlib/install/lib/libz.so.1.2.8
+/mnt/data/jnulzl/codes/tensorflow/build_dir/zlib/install/lib/libz.so.1
+/mnt/data/jnulzl/codes/tensorflow/build_dir/zlib/install/lib/libz.so
+/mnt/data/jnulzl/codes/tensorflow/build_dir/zlib/install/lib/libz.a
+/mnt/data/jnulzl/codes/tensorflow/build_dir/zlib/install/include/zconf.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/zlib/install/include/zlib.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/zlib/install/share/man/man3/zlib.3
+/mnt/data/jnulzl/codes/tensorflow/build_dir/zlib/install/share/pkgconfig/zlib.pc

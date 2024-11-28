@@ -15,7 +15,11 @@
 include (ExternalProject)
 
 set(jpeg_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/jpeg_archive)
-set(jpeg_URL http://mirror.bazel.build/www.ijg.org/files/jpegsrc.v9a.tar.gz)
+if(local_third_party)
+    set(jpeg_URL ${local_third_party}/jpegsrc.v9a.tar.gz)
+else()
+    set(jpeg_URL http://mirror.bazel.build/www.ijg.org/files/jpegsrc.v9a.tar.gz)
+endif()
 set(jpeg_HASH SHA256=3a753ea48d917945dd54a2d97de388aa06ca2eb1066cbfdc6652036349fe05a7)
 set(jpeg_BUILD ${CMAKE_CURRENT_BINARY_DIR}/jpeg/src/jpeg)
 set(jpeg_INSTALL ${CMAKE_CURRENT_BINARY_DIR}/jpeg/install)

@@ -15,7 +15,11 @@
 include (ExternalProject)
 
 set(png_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/png_archive)
-set(png_URL http://mirror.bazel.build/github.com/glennrp/libpng/archive/v1.2.53.tar.gz)
+if(local_third_party)
+    set(png_URL ${local_third_party}/v1.2.53.tar.gz)
+else()
+    set(png_URL http://mirror.bazel.build/github.com/glennrp/libpng/archive/v1.2.53.tar.gz)
+endif()
 set(png_HASH SHA256=716c59c7dfc808a4c368f8ada526932be72b2fcea11dd85dc9d88b1df1dfe9c2)
 set(png_BUILD ${CMAKE_BINARY_DIR}/png/src/png)
 set(png_INSTALL ${CMAKE_BINARY_DIR}/png/install)

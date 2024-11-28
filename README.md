@@ -1,3 +1,36 @@
+# TensorFlow CMake Build
+
+**cmake build tensorflow v1.4.0**
+
+## Depends
+
+- OS : Ubuntu 20.04/Ubuntu 18.04/Ubuntu 16.04
+- local_third_party: `tensorflow/tensorflow/contrib/cmake/third_party`
+- - **`only for tensorflow v1.4.0`**
+- - **`delete all xx/.git`**
+- - [`total_third_party`](https://pan.baidu.com/s/1aOBHSmH4I1Vbxzz4vTfJKg?pwd=ptip)
+
+## Build
+```shell
+>>sudo apt update
+>>sudo apt install gcc g++ cmake git python-dev python-pip python-numpy swig
+>>git clone https://github.com/jnulzl/tf_cmake_build_v1.4
+>>cd tf_cmake_build_v1.4
+>>mkdir build_ubuntu2004 && cd build_ubuntu2004 # build_ubuntu1804,build_ubuntu1604
+cmake  ../tensorflow/contrib/cmake -DCMAKE_BUILD_TYPE=Release -Dtensorflow_BUILD_SHARED_LIB=ON -Dtensorflow_VERBOSE=ON ->>Dtensorflow_USE_LOCAL_THIRD_PARTY=ON
+>>make VERBOSE=1 -j4
+....
+make[2]: Leaving directory '/mnt/data/jnulzl/codes/tensorflow/build_ubuntu2004'
+[100%] Built target pywrap_tensorflow_internal
+make[1]: Leaving directory '/mnt/data/jnulzl/codes/tensorflow/build_ubuntu2004'
+/usr/bin/cmake -E cmake_progress_start /mnt/data/jnulzl/codes/tensorflow/build_ubuntu2004/CMakeFiles 0
+>>ls lib*so
+libpywrap_tensorflow_internal.so  libtensorflow.so
+```
+
+
+-------------------------------------------------------
+
 <div align="center">
   <img src="https://www.tensorflow.org/images/tf_logo_transp.png"><br><br>
 </div>

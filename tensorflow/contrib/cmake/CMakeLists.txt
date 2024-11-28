@@ -34,6 +34,19 @@ option(tensorflow_BUILD_SHARED_LIB "Build TensorFlow as a shared library" OFF)
 option(tensorflow_OPTIMIZE_FOR_NATIVE_ARCH "Enable compiler optimizations for the native processor architecture (if available)" ON)
 option(tensorflow_WIN_CPU_SIMD_OPTIONS "Enables CPU SIMD instructions")
 option(tensorflow_ENABLE_SNAPPY_SUPPORT "Enable SNAPPY compression support" ON)
+option(tensorflow_USE_LOCAL_THIRD_PARTY "Use local third party" OFF)
+
+# If use local third_party
+if(tensorflow_USE_LOCAL_THIRD_PARTY)
+  if(NOT local_third_party)
+    set(local_third_party ${tensorflow_SOURCE_DIR}/third_party)
+  endif()
+  if(EXISTS ${local_third_party})
+    message(STATUS "local_third_party : " ${local_third_party})
+  else()
+    message(FATAL_ERROR "local_third_party=${local_third_party} don't exist! Please set it by -Dlocal_third_party=\"your_local_third_party\"")
+  endif()
+endif()
 
 if (NOT WIN32)
   # Threads: defines CMAKE_THREAD_LIBS_INIT and adds -pthread compile option

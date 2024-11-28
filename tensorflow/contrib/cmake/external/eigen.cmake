@@ -21,15 +21,19 @@
 
 include (ExternalProject)
 
-# We parse the current Eigen version and archive hash from the bazel configuration
-file(STRINGS ${PROJECT_SOURCE_DIR}/../../workspace.bzl workspace_contents)
-foreach(line ${workspace_contents})
-    string(REGEX MATCH ".*\"(http://mirror.bazel.build/bitbucket.org/eigen/eigen/get/[^\"]*tar.gz)\"" has_url ${line})
-    if(has_url)
-        set(eigen_url ${CMAKE_MATCH_1})
-        break()
-    endif()
-endforeach()
+if(local_third_party)
+    set(eigen_url ${local_third_party}/429aa5254200.tar.gz)
+else()
+    # We parse the current Eigen version and archive hash from the bazel configuration
+    file(STRINGS ${PROJECT_SOURCE_DIR}/../../workspace.bzl workspace_contents)
+    foreach(line ${workspace_contents})
+        string(REGEX MATCH ".*\"(http://mirror.bazel.build/bitbucket.org/eigen/eigen/get/[^\"]*tar.gz)\"" has_url ${line})
+        if(has_url)
+            set(eigen_url ${CMAKE_MATCH_1})
+            break()
+        endif()
+    endforeach()
+endif()
 
 set(eigen_INCLUDE_DIRS
     ${CMAKE_CURRENT_BINARY_DIR}

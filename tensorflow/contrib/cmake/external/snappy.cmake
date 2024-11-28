@@ -14,7 +14,11 @@
 # ==============================================================================
 include (ExternalProject)
 
-set(snappy_URL https://github.com/google/snappy.git)
+if(local_third_party)
+    set(snappy_URL ${local_third_party}/snappy)
+else()
+    set(snappy_URL https://github.com/google/snappy.git)
+endif()
 set(snappy_TAG "55924d11095df25ab25c405fadfe93d0a46f82eb")
 set(snappy_BUILD ${CMAKE_CURRENT_BINARY_DIR}/snappy/src/snappy)
 set(snappy_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/snappy/src/snappy)

@@ -15,7 +15,11 @@
 include (ExternalProject)
 
 set(sqlite_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/sqlite)
-set(sqlite_URL http://www.sqlite.org/2017/sqlite-amalgamation-3200000.zip)
+if(local_third_party)
+    set(sqlite_URL ${local_third_party}/sqlite-amalgamation-3200000.zip)
+else()
+    set(sqlite_URL http://www.sqlite.org/2017/sqlite-amalgamation-3200000.zip)
+endif()
 set(sqlite_HASH SHA256=208780b3616f9de0aeb50822b7a8f5482f6515193859e91ed61637be6ad74fd4)
 set(sqlite_BUILD ${CMAKE_CURRENT_BINARY_DIR}/sqlite/src/sqlite)
 set(sqlite_INSTALL ${CMAKE_CURRENT_BINARY_DIR}/sqlite/install)

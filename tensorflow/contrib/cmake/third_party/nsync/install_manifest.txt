@@ -1,0 +1,14 @@
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/lib/libnsync.a
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync_atomic.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync_counter.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync_cpp.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync_cv.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync_debug.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync_mu.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync_mu_wait.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync_note.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync_once.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync_time.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync_time_internal.h
+/mnt/data/jnulzl/codes/tensorflow/build_dir/nsync/install/include/nsync_waiter.h
