@@ -15,7 +15,11 @@
 include (ExternalProject)
 
 set(GRPC_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR}/grpc/src/grpc/include)
-set(GRPC_URL https://github.com/grpc/grpc.git)
+if(local_third_party)
+    set(GRPC_URL ${local_third_party}/grpc)
+else()
+    set(GRPC_URL https://github.com/grpc/grpc.git)
+endif()
 set(GRPC_BUILD ${CMAKE_CURRENT_BINARY_DIR}/grpc/src/grpc)
 set(GRPC_TAG 781fd6f6ea03645a520cd5c675da67ab61f87e4b)
 
@@ -32,27 +36,50 @@ else()
       ${CMAKE_CURRENT_BINARY_DIR}/grpc/src/grpc/third_party/cares/libcares.a)
 endif()
 
-ExternalProject_Add(grpc
-    PREFIX grpc
-    DEPENDS protobuf zlib
-    GIT_REPOSITORY ${GRPC_URL}
-    GIT_TAG ${GRPC_TAG}
-    DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
-    BUILD_IN_SOURCE 1
-    # TODO(jhseu): Remove this PATCH_COMMAND once grpc removes the dependency
-    # on "grpc" from the "grpc++_unsecure" rule.
-    PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/patches/grpc/CMakeLists.txt ${GRPC_BUILD}
-    BUILD_COMMAND ${CMAKE_COMMAND} --build . --config Release --target grpc++_unsecure
-    COMMAND ${CMAKE_COMMAND} --build . --config Release --target grpc_cpp_plugin
-    INSTALL_COMMAND ""
-    CMAKE_CACHE_ARGS
-        -DCMAKE_BUILD_TYPE:STRING=Release
-        -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
-        -DPROTOBUF_INCLUDE_DIRS:STRING=${PROTOBUF_INCLUDE_DIRS}
-        -DPROTOBUF_LIBRARIES:STRING=${protobuf_STATIC_LIBRARIES}
-        -DZLIB_ROOT:STRING=${ZLIB_INSTALL}
-	-DgRPC_SSL_PROVIDER:STRING=NONE
-)
+if(local_third_party)
+    ExternalProject_Add(grpc
+            PREFIX grpc
+            DEPENDS protobuf zlib
+            URL ${GRPC_URL}
+            DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+            BUILD_IN_SOURCE 1
+            # TODO(jhseu): Remove this PATCH_COMMAND once grpc removes the dependency
+            # on "grpc" from the "grpc++_unsecure" rule.
+            PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/patches/grpc/CMakeLists.txt ${GRPC_BUILD}
+            BUILD_COMMAND ${CMAKE_COMMAND} --build . --config Release --target grpc++_unsecure
+            COMMAND ${CMAKE_COMMAND} --build . --config Release --target grpc_cpp_plugin
+            INSTALL_COMMAND ""
+            CMAKE_CACHE_ARGS
+            -DCMAKE_BUILD_TYPE:STRING=Release
+            -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
+            -DPROTOBUF_INCLUDE_DIRS:STRING=${PROTOBUF_INCLUDE_DIRS}
+            -DPROTOBUF_LIBRARIES:STRING=${protobuf_STATIC_LIBRARIES}
+            -DZLIB_ROOT:STRING=${ZLIB_INSTALL}
+            -DgRPC_SSL_PROVIDER:STRING=NONE
+            )
+else()
+    ExternalProject_Add(grpc
+            PREFIX grpc
+            DEPENDS protobuf zlib
+            GIT_REPOSITORY ${GRPC_URL}
+            GIT_TAG ${GRPC_TAG}
+            DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+            BUILD_IN_SOURCE 1
+            # TODO(jhseu): Remove this PATCH_COMMAND once grpc removes the dependency
+            # on "grpc" from the "grpc++_unsecure" rule.
+            PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/patches/grpc/CMakeLists.txt ${GRPC_BUILD}
+            BUILD_COMMAND ${CMAKE_COMMAND} --build . --config Release --target grpc++_unsecure
+            COMMAND ${CMAKE_COMMAND} --build . --config Release --target grpc_cpp_plugin
+            INSTALL_COMMAND ""
+            CMAKE_CACHE_ARGS
+            -DCMAKE_BUILD_TYPE:STRING=Release
+            -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
+            -DPROTOBUF_INCLUDE_DIRS:STRING=${PROTOBUF_INCLUDE_DIRS}
+            -DPROTOBUF_LIBRARIES:STRING=${protobuf_STATIC_LIBRARIES}
+            -DZLIB_ROOT:STRING=${ZLIB_INSTALL}
+            -DgRPC_SSL_PROVIDER:STRING=NONE
+            )
+endif()
 
 # grpc/src/core/ext/census/tracing.c depends on the existence of openssl/rand.h.
 ExternalProject_Add_Step(grpc copy_rand

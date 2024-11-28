@@ -22,3 +22,4 @@ build_*
 tensorflow/contrib/cmake/.idea
 tensorflow/contrib/cmake/.vs
 tensorflow/contrib/cmake/.vscode
+tensorflow/python/framework/fast_tensor_util.cpp
