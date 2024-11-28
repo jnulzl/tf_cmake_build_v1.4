@@ -33,22 +33,40 @@ set(snappy_HEADERS
     "${snappy_INCLUDE_DIR}/snappy.h"
 )
 
-ExternalProject_Add(snappy
-    PREFIX snappy
-    GIT_REPOSITORY ${snappy_URL}
-    GIT_TAG ${snappy_TAG}
-    DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
-    BUILD_IN_SOURCE 1
-    INSTALL_COMMAND ""
-    LOG_DOWNLOAD ON
-    LOG_CONFIGURE ON
-    LOG_BUILD ON
-    CMAKE_CACHE_ARGS
-        -DCMAKE_BUILD_TYPE:STRING=Release
-        -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
-        -DSNAPPY_BUILD_TESTS:BOOL=OFF
-        -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
-)
+if(local_third_party)
+    ExternalProject_Add(snappy
+            PREFIX snappy
+            URL ${snappy_URL}
+            DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+            BUILD_IN_SOURCE 1
+            INSTALL_COMMAND ""
+            LOG_DOWNLOAD ON
+            LOG_CONFIGURE ON
+            LOG_BUILD ON
+            CMAKE_CACHE_ARGS
+            -DCMAKE_BUILD_TYPE:STRING=Release
+            -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
+            -DSNAPPY_BUILD_TESTS:BOOL=OFF
+            -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
+            )
+else()
+    ExternalProject_Add(snappy
+            PREFIX snappy
+            GIT_REPOSITORY ${snappy_URL}
+            GIT_TAG ${snappy_TAG}
+            DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+            BUILD_IN_SOURCE 1
+            INSTALL_COMMAND ""
+            LOG_DOWNLOAD ON
+            LOG_CONFIGURE ON
+            LOG_BUILD ON
+            CMAKE_CACHE_ARGS
+            -DCMAKE_BUILD_TYPE:STRING=Release
+            -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
+            -DSNAPPY_BUILD_TESTS:BOOL=OFF
+            -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
+            )
+endif()
 
 # actually enables snappy in the source code
 add_definitions(-DSNAPPY)

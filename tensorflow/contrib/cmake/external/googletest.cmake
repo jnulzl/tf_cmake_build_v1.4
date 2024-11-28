@@ -31,17 +31,33 @@ else()
       ${CMAKE_CURRENT_BINARY_DIR}/googletest/src/googletest/googletest/${CMAKE_BUILD_TYPE}/gtest.a)
 endif()
 
-ExternalProject_Add(googletest
-    PREFIX googletest
-    GIT_REPOSITORY ${googletest_URL}
-    GIT_TAG ${googletest_TAG}
-    DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
-    BUILD_IN_SOURCE 1
-    #PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/patches/grpc/CMakeLists.txt ${GRPC_BUILD}
-    INSTALL_COMMAND ""
-    CMAKE_CACHE_ARGS
-        -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-        -DBUILD_GMOCK:BOOL=OFF
-        -DBUILD_GTEST:BOOL=ON
-        -Dgtest_force_shared_crt:BOOL=ON
-)
+if(local_third_party)
+  ExternalProject_Add(googletest
+          PREFIX googletest
+          URL ${googletest_URL}
+          DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+          BUILD_IN_SOURCE 1
+          #PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/patches/grpc/CMakeLists.txt ${GRPC_BUILD}
+          INSTALL_COMMAND ""
+          CMAKE_CACHE_ARGS
+          -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+          -DBUILD_GMOCK:BOOL=OFF
+          -DBUILD_GTEST:BOOL=ON
+          -Dgtest_force_shared_crt:BOOL=ON
+          )
+else()
+  ExternalProject_Add(googletest
+          PREFIX googletest
+          GIT_REPOSITORY ${googletest_URL}
+          GIT_TAG ${googletest_TAG}
+          DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+          BUILD_IN_SOURCE 1
+          #PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/patches/grpc/CMakeLists.txt ${GRPC_BUILD}
+          INSTALL_COMMAND ""
+          CMAKE_CACHE_ARGS
+          -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+          -DBUILD_GMOCK:BOOL=OFF
+          -DBUILD_GTEST:BOOL=ON
+          -Dgtest_force_shared_crt:BOOL=ON
+          )
+endif()

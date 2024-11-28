@@ -40,19 +40,34 @@ else()
   set(nsync_STATIC_LIBRARIES ${nsync_INSTALL}/lib/libnsync.a)
 endif()
 
-ExternalProject_Add(nsync
-    PREFIX nsync
-    GIT_REPOSITORY ${nsync_URL}
-    GIT_TAG ${nsync_TAG}
-    DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
-    BUILD_IN_SOURCE 1
-    PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/patches/nsync/CMakeLists.txt ${nsync_BUILD}
-    INSTALL_DIR ${nsync_INSTALL}
-    CMAKE_CACHE_ARGS
-        -DCMAKE_BUILD_TYPE:STRING=Release
-        -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
-        -DCMAKE_INSTALL_PREFIX:STRING=${nsync_INSTALL}
-	-DNSYNC_LANGUAGE:STRING=c++11)
+if(local_third_party)
+    ExternalProject_Add(nsync
+            PREFIX nsync
+            URL ${nsync_URL}
+            DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+            BUILD_IN_SOURCE 1
+            PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/patches/nsync/CMakeLists.txt ${nsync_BUILD}
+            INSTALL_DIR ${nsync_INSTALL}
+            CMAKE_CACHE_ARGS
+            -DCMAKE_BUILD_TYPE:STRING=Release
+            -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
+            -DCMAKE_INSTALL_PREFIX:STRING=${nsync_INSTALL}
+            -DNSYNC_LANGUAGE:STRING=c++11)
+else()
+    ExternalProject_Add(nsync
+            PREFIX nsync
+            GIT_REPOSITORY ${nsync_URL}
+            GIT_TAG ${nsync_TAG}
+            DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+            BUILD_IN_SOURCE 1
+            PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/patches/nsync/CMakeLists.txt ${nsync_BUILD}
+            INSTALL_DIR ${nsync_INSTALL}
+            CMAKE_CACHE_ARGS
+            -DCMAKE_BUILD_TYPE:STRING=Release
+            -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
+            -DCMAKE_INSTALL_PREFIX:STRING=${nsync_INSTALL}
+            -DNSYNC_LANGUAGE:STRING=c++11)
+endif()
 
 add_custom_command(TARGET nsync_copy_headers_to_destination PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${nsync_INSTALL}/include/ ${nsync_INCLUDE_DIR}/)

@@ -34,15 +34,29 @@ set(re2_HEADERS
     ${re2_INSTALL}/include/re2/re2.h
 )
 
-ExternalProject_Add(re2
-    PREFIX re2
-    GIT_REPOSITORY ${re2_URL}
-    GIT_TAG ${re2_TAG}
-    INSTALL_DIR ${re2_INSTALL}
-    BUILD_IN_SOURCE 1
-    DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
-    CMAKE_CACHE_ARGS
-        -DCMAKE_BUILD_TYPE:STRING=Release
-        -DCMAKE_INSTALL_PREFIX:STRING=${re2_INSTALL}
-        -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
-)
+if(local_third_party)
+  ExternalProject_Add(re2
+          PREFIX re2
+          URL ${re2_URL}
+          INSTALL_DIR ${re2_INSTALL}
+          BUILD_IN_SOURCE 1
+          DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+          CMAKE_CACHE_ARGS
+          -DCMAKE_BUILD_TYPE:STRING=Release
+          -DCMAKE_INSTALL_PREFIX:STRING=${re2_INSTALL}
+          -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
+          )
+else()
+  ExternalProject_Add(re2
+          PREFIX re2
+          GIT_REPOSITORY ${re2_URL}
+          GIT_TAG ${re2_TAG}
+          INSTALL_DIR ${re2_INSTALL}
+          BUILD_IN_SOURCE 1
+          DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+          CMAKE_CACHE_ARGS
+          -DCMAKE_BUILD_TYPE:STRING=Release
+          -DCMAKE_INSTALL_PREFIX:STRING=${re2_INSTALL}
+          -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
+          )
+endif()

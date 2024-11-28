@@ -17,7 +17,7 @@
 >>git clone https://github.com/jnulzl/tf_cmake_build_v1.4
 >>cd tf_cmake_build_v1.4
 >>mkdir build_ubuntu2004 && cd build_ubuntu2004 # build_ubuntu1804,build_ubuntu1604
-cmake  ../tensorflow/contrib/cmake -DCMAKE_BUILD_TYPE=Release -Dtensorflow_BUILD_SHARED_LIB=ON -Dtensorflow_VERBOSE=ON ->>Dtensorflow_USE_LOCAL_THIRD_PARTY=ON
+>>cmake  ../tensorflow/contrib/cmake -DCMAKE_BUILD_TYPE=Release -Dtensorflow_BUILD_SHARED_LIB=ON -Dtensorflow_VERBOSE=ON -Dtensorflow_USE_LOCAL_THIRD_PARTY=ON
 >>make VERBOSE=1 -j4
 ....
 make[2]: Leaving directory '/mnt/data/jnulzl/codes/tensorflow/build_ubuntu2004'

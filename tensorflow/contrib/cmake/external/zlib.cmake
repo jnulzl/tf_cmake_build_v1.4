@@ -38,18 +38,32 @@ set(ZLIB_HEADERS
     "${ZLIB_INSTALL}/include/zlib.h"
 )
 
-ExternalProject_Add(zlib
-    PREFIX zlib
-    GIT_REPOSITORY ${ZLIB_URL}
-    GIT_TAG ${ZLIB_TAG}
-    INSTALL_DIR ${ZLIB_INSTALL}
-    BUILD_IN_SOURCE 1
-    DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
-    CMAKE_CACHE_ARGS
-        -DCMAKE_BUILD_TYPE:STRING=Release
-        -DCMAKE_INSTALL_PREFIX:STRING=${ZLIB_INSTALL}
-	-DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
-)
+if(local_third_party)
+    ExternalProject_Add(zlib
+            PREFIX zlib
+            URL ${ZLIB_URL}
+            INSTALL_DIR ${ZLIB_INSTALL}
+            BUILD_IN_SOURCE 1
+            DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+            CMAKE_CACHE_ARGS
+            -DCMAKE_BUILD_TYPE:STRING=Release
+            -DCMAKE_INSTALL_PREFIX:STRING=${ZLIB_INSTALL}
+            -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
+            )
+else()
+    ExternalProject_Add(zlib
+            PREFIX zlib
+            GIT_REPOSITORY ${ZLIB_URL}
+            GIT_TAG ${ZLIB_TAG}
+            INSTALL_DIR ${ZLIB_INSTALL}
+            BUILD_IN_SOURCE 1
+            DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+            CMAKE_CACHE_ARGS
+            -DCMAKE_BUILD_TYPE:STRING=Release
+            -DCMAKE_INSTALL_PREFIX:STRING=${ZLIB_INSTALL}
+            -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
+            )
+endif()
 
 # put zlib includes in the directory where they are expected
 add_custom_target(zlib_create_destination_dir

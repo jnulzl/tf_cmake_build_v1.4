@@ -38,16 +38,30 @@ set(jsoncpp_HEADERS
     "${jsoncpp_INCLUDE_DIR}/include/json/json.h"
 )
 
-ExternalProject_Add(jsoncpp
-    PREFIX jsoncpp
-    GIT_REPOSITORY ${jsoncpp_URL}
-    GIT_TAG ${jsoncpp_TAG}
-    DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
-    BUILD_IN_SOURCE 1
-    INSTALL_COMMAND ""
-    CMAKE_CACHE_ARGS
-        -DCMAKE_BUILD_TYPE:STRING=Release
-        -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
-	-DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
-)
+if(local_third_party)
+    ExternalProject_Add(jsoncpp
+            PREFIX jsoncpp
+            URL ${jsoncpp_URL}
+            DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+            BUILD_IN_SOURCE 1
+            INSTALL_COMMAND ""
+            CMAKE_CACHE_ARGS
+            -DCMAKE_BUILD_TYPE:STRING=Release
+            -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
+            -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
+            )
+else()
+    ExternalProject_Add(jsoncpp
+            PREFIX jsoncpp
+            GIT_REPOSITORY ${jsoncpp_URL}
+            GIT_TAG ${jsoncpp_TAG}
+            DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+            BUILD_IN_SOURCE 1
+            INSTALL_COMMAND ""
+            CMAKE_CACHE_ARGS
+            -DCMAKE_BUILD_TYPE:STRING=Release
+            -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
+            -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
+            )
+endif()
 

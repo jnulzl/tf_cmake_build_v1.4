@@ -40,18 +40,32 @@ else()
   set(highwayhash_STATIC_LIBRARIES ${highwayhash_INSTALL}/lib/libhighwayhash.a)
 endif()
 
-ExternalProject_Add(highwayhash
-    PREFIX highwayhash
-    GIT_REPOSITORY ${highwayhash_URL}
-    GIT_TAG ${highwayhash_TAG}
-    DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
-    BUILD_IN_SOURCE 1
-    PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/patches/highwayhash/CMakeLists.txt ${highwayhash_BUILD}
-    INSTALL_DIR ${highwayhash_INSTALL}
-    CMAKE_CACHE_ARGS
-        -DCMAKE_BUILD_TYPE:STRING=Release
-        -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
-        -DCMAKE_INSTALL_PREFIX:STRING=${highwayhash_INSTALL})
+if(local_third_party)
+  ExternalProject_Add(highwayhash
+          PREFIX highwayhash
+          URL ${highwayhash_URL}
+          DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+          BUILD_IN_SOURCE 1
+          PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/patches/highwayhash/CMakeLists.txt ${highwayhash_BUILD}
+          INSTALL_DIR ${highwayhash_INSTALL}
+          CMAKE_CACHE_ARGS
+          -DCMAKE_BUILD_TYPE:STRING=Release
+          -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
+          -DCMAKE_INSTALL_PREFIX:STRING=${highwayhash_INSTALL})
+else()
+  ExternalProject_Add(highwayhash
+          PREFIX highwayhash
+          GIT_REPOSITORY ${highwayhash_URL}
+          GIT_TAG ${highwayhash_TAG}
+          DOWNLOAD_DIR "${DOWNLOAD_LOCATION}"
+          BUILD_IN_SOURCE 1
+          PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/patches/highwayhash/CMakeLists.txt ${highwayhash_BUILD}
+          INSTALL_DIR ${highwayhash_INSTALL}
+          CMAKE_CACHE_ARGS
+          -DCMAKE_BUILD_TYPE:STRING=Release
+          -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF
+          -DCMAKE_INSTALL_PREFIX:STRING=${highwayhash_INSTALL})
+endif()
 
 add_custom_command(TARGET highwayhash_copy_headers_to_destination PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${highwayhash_INSTALL}/include/ ${highwayhash_INCLUDE_DIR}/highwayhash)

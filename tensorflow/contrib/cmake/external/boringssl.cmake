@@ -19,7 +19,7 @@ set(boringssl_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/boringssl/src/boringssl/in
 if(local_third_party)
     set(boringssl_URL ${local_third_party}/boringssl)
 else()
-    set(boringssl_URL https://boringssl.googlesource.com/boringssl)
+    set(boringssl_URL https://github.com/google/boringssl)
 endif()
 set(boringssl_TAG ee7aa02)
 set(boringssl_BUILD ${CMAKE_BINARY_DIR}/boringssl/src/boringssl-build)
